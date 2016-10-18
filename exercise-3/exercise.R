@@ -3,22 +3,26 @@
 
 
 # Install devtools package: allows installations from GitHub
-install.packages('devtools')
-
+#install.packages('devtools')
+#install.packages('dplyr')
 # Install "fueleconomy" package from GitHub
-devtools::install_github("hadley/fueleconomy")
+#devtools::install_github("hadley/fueleconomy")
 
 # Require/library the fueleconomy package
-
-
+library(fueleconomy)
+library(dplyr)
 # Which Accura model has the best hwy MPG in 2015? (without method chaining)
-
+acuras.2015 <- filter(vehicles, make=="Acura",year==2015)
+best.acura.2015 <- filter(acuras.2015, hwy == max(hwy))
+best.acura.model.2015 <- select(best.acura.2015, model)
 
 # Which Accura model has the best hwy MPG in 2015? (nesting functions)
-
+best.acura.model.2015.nested <- select(filter(filter(vehicles, make=="Acura",year==2015), hwy == max(hwy)), model)
 
 # Which Accura model has the best hwy MPG in 2015? (pipe operator)
-
+best.acura.model.2015.piped <- filter(vehicles, make=="Acura", year==2015) %>%
+  filter(hwy==max(hwy))%>%
+  select(model)
 
 ### Bonus ###
 
